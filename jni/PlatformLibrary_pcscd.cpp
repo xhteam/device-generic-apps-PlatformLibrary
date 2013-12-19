@@ -40,7 +40,8 @@ static void SmartCardReaderPower(int on){
 static jint PlatformLibrary_native_start_service(JNIEnv* env, jobject thiz) {
 	SmartCardReaderPower(1);
 	usleep(100000);
-	int ret = property_set("ctl.start", "pcscd");
+	int ret = property_set("ctl.start", "pcscd");	
+	usleep(2000000);
 	return (jint)ret;
 }
 
