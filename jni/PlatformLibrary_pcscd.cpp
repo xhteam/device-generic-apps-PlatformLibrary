@@ -21,13 +21,25 @@
 #include <string.h>
 #include <assert.h>
 #include <cutils/properties.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 #include "jni.h"
 
+static void SmartCardReaderPower(int on){	
+	int fd = open( "/proc/driver/smartcard", O_WRONLY );
+	if(fd>=0){
+		const char* onoff = on?"1\n":"0\n";
+		write(fd,onoff,strlen(onoff));
+		close(fd);
+	}
+}
 /*
  * returns 0 on success, < 0 on failure
  */
 static jint PlatformLibrary_native_start_service(JNIEnv* env, jobject thiz) {
+	SmartCardReaderPower(1);
+	usleep(100000);
 	int ret = property_set("ctl.start", "pcscd");
 	return (jint)ret;
 }
@@ -37,6 +49,7 @@ static jint PlatformLibrary_native_start_service(JNIEnv* env, jobject thiz) {
  */
 static jint PlatformLibrary_natice_stop_service(JNIEnv* env, jobject thiz) {
 	int ret = property_set("ctl.stop", "pcscd");
+	SmartCardReaderPower(0);
 	return (jint)ret;
 }
 
