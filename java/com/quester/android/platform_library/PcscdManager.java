@@ -3,13 +3,13 @@ package com.quester.android.platform_library;
 import android.util.Log;
 
 public final class PcscdManager {    
+	
     static {
         /*
          * Load the library.  If it's already loaded, this does nothing.
          */
         System.loadLibrary("platform_library_pcscd_jni");
     }
-
     public PcscdManager() {}
 
 	/**

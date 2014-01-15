@@ -1,0 +1,5 @@
+# Keep all Fragments in this package, which are used by reflection.
+-keep class com.quester.android.platform_library.PlatformLibrary {*;}
+-keep class com.quester.android.platform_library.PcscdManager {*;}
+-keep class com.quester.android.platform_library.scard.SCardManager {*;}
+-keep class com.quester.android.platform_library.scard.SCardPcscLite {*;}

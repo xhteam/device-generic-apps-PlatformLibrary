@@ -44,6 +44,13 @@ LOCAL_MODULE_TAGS := optional
 # This is the target being built.
 LOCAL_MODULE:= com.quester.android.platform_library
 
+LOCAL_PROGUARD_ENABLED := disabled
+
+#
+#LOCAL_PROGUARD_ENABLED := full
+
+LOCAL_PROGUARD_FLAG_FILES := proguard.flags
+
 include $(BUILD_JAVA_LIBRARY)
 
 # the documentation

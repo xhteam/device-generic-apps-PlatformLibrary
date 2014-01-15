@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#define LOG_TAG "pcscd_jni"
 
 #include "utils/Log.h"
 
@@ -25,6 +26,7 @@
 #include <fcntl.h>
 
 #include "jni.h"
+namespace android {
 
 static void SmartCardReaderPower(int on){	
 	int fd = open( "/proc/driver/smartcard", O_WRONLY );
@@ -75,7 +77,7 @@ static const JNINativeMethod gMethods[] = {
  *
  * Returns 0 on success.
  */
-static int registerMethods(JNIEnv* env) {
+int register_com_quester_android_PlatformLibrary_SCardManager(JNIEnv* env) {
     static const char* const kClassName =
         "com/quester/android/platform_library/PcscdManager";
     jclass clazz;
@@ -98,29 +100,7 @@ static int registerMethods(JNIEnv* env) {
     return 0;
 }
 
+}/* namespace android */
+
 // ----------------------------------------------------------------------------
 
-/*
- * This is called by the VM when the shared library is first loaded.
- */
-jint JNI_OnLoad(JavaVM* vm, void* reserved) {
-    JNIEnv* env = NULL;
-    jint result = -1;
-
-    if (vm->GetEnv((void**) &env, JNI_VERSION_1_4) != JNI_OK) {
-        ALOGE("ERROR: GetEnv failed\n");
-        goto bail;
-    }
-    assert(env != NULL);
-
-    if (registerMethods(env) != 0) {
-        ALOGE("ERROR: PlatformLibrary native registration failed\n");
-        goto bail;
-    }
-
-    /* success -- return valid version number */
-    result = JNI_VERSION_1_4;
-
-bail:
-    return result;
-}

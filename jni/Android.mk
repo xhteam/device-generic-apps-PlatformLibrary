@@ -24,13 +24,17 @@ LOCAL_MODULE:= libplatform_library_pcscd_jni
 
 # All of the source files that we will compile.
 LOCAL_SRC_FILES:= \
-	PlatformLibrary_pcscd.cpp
+	PlatformLibrary.cpp \
+	PlatformLibrary_pcscd.cpp\
+	PlatformLibrary_scard_SCardManager.cpp 
 
+	
 # All of the shared libraries we link against.
 LOCAL_SHARED_LIBRARIES := \
 	libnativehelper \
 	libcutils \
-	libutils
+	libutils \
+	libpcsclite
 
 # No static libraries.
 LOCAL_STATIC_LIBRARIES :=
